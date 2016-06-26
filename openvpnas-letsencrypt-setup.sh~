@@ -13,7 +13,7 @@ fi
 
 # Obtain certificate
 if [ ! -f /etc/letsencrypt/live/$2/cert.pem ]; then
-    ./certbot-auto certonly \
+    /opt/certbot-auto certonly \
         --non-interactive \
         --agree-tos \
         --email $1 \
@@ -21,7 +21,6 @@ if [ ! -f /etc/letsencrypt/live/$2/cert.pem ]; then
         --pre-hook "service openvpnas stop" \
         --post-hook "service openvpnas start" \
         --domain $2
-        /
 fi
 
 # Move OpenVPN AS' default self-signed certificates to archive folder
