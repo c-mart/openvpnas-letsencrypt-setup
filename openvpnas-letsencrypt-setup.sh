@@ -41,5 +41,5 @@ fi
 service openvpnas restart
 
 # Script certificate renewal with cron
-echo "#!/bin/bash\n/opt/certbot-auto renew --quiet --pre-hook \"service openvpnas stop\" --post-hook \"service openvpnas start\"" > /etc/cron.weekly/le-renew
+printf "#!/bin/bash\n/opt/certbot-auto renew --quiet --pre-hook \"service openvpnas stop\" --post-hook \"service openvpnas start\"" > /etc/cron.weekly/le-renew
 chmod +x /etc/cron.weekly/le-renew

@@ -5,14 +5,16 @@
 # Usage: openvpnas-letsencrypt-setup.sh [email address] [domain]
 
 # Download LE client
-if [ ! -f /opt/certbot-auto ]; then
+if [ ! -f /opt/certbot-auto ]
+then
     cd /opt
     wget https://dl.eff.org/certbot-auto
     chmod a+x certbot-auto
 fi
 
 # Obtain certificate
-if [ ! -f /etc/letsencrypt/live/$2/cert.pem ]; then
+if [ ! -f /etc/letsencrypt/live/$2/cert.pem ]
+then
     /opt/certbot-auto certonly \
         --non-interactive \
         --agree-tos \
@@ -24,7 +26,8 @@ if [ ! -f /etc/letsencrypt/live/$2/cert.pem ]; then
 fi
 
 # Move OpenVPN AS' default self-signed certificates to archive folder
-if [ ! -L /usr/local/openvpn_as/etc/web-ssl/server.crt ];
+if [ ! -L /usr/local/openvpn_as/etc/web-ssl/server.crt ]
+then
     cd /usr/local/openvpn_as/etc/web-ssl
     mkdir old-selfsigned
     mv ca.crt server.crt server.key old-selfsigned/
@@ -33,7 +36,6 @@ if [ ! -L /usr/local/openvpn_as/etc/web-ssl/server.crt ];
     ln -s /etc/letsencrypt/live/$2/fullchain.pem /usr/local/openvpn_as/etc/web-ssl/ca.crt 
     ln -s /etc/letsencrypt/live/$2/cert.pem /usr/local/openvpn_as/etc/web-ssl/server.crt 
     ln -s /etc/letsencrypt/live/$2/privkey.pem /usr/local/openvpn_as/etc/web-ssl/server.key
-
 fi
 
 service openvpnas restart
