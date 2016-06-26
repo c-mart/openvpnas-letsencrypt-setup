@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # Script configures OpenVPN AS for Let's Encrypt
+# Tested with OpenVPN AS 2.0.24 on Ubuntu 14.04 LTS
 # Takes two args: email address, and hostname for which cert is desired
 # Usage: openvpnas-letsencrypt-setup.sh [email address] [domain]
 
@@ -41,5 +42,5 @@ fi
 service openvpnas restart
 
 # Script certificate renewal with cron
-printf "#!/bin/bash\n/opt/certbot-auto renew --quiet --pre-hook \"service openvpnas stop\" --post-hook \"service openvpnas start\"" > /etc/cron.weekly/le-renew
+printf "#!/bin/bash\n/opt/certbot-auto renew --quiet --pre-hook \"service openvpnas stop\" --post-hook \"service openvpnas start\"\n" > /etc/cron.weekly/le-renew
 chmod +x /etc/cron.weekly/le-renew
